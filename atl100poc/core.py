@@ -10,10 +10,10 @@ import hy
 
 from fdbhy import FdbOps
 
-ALLCATS=[u'BREAKFAST', u'SMALL PLATES, APPS & SIDES',
-         u'SOUPS', u'SALADS', u'BURGERS & SANDWICHES',
-         u'PASTA, PIZZA & NOODLES', u'MEATLESS ENTREES',
-         u'SOUPS', u'SEAFOOD', u'DESSERTS & SWEETS']
+MEALTAGS = [u'BREAKFAST', u'SMALL PLATES, APPS & SIDES',
+           u'SOUPS', u'SALADS', u'BURGERS & SANDWICHES',
+           u'PASTA, PIZZA & NOODLES', u'MEATLESS ENTREES',
+           u'SOUPS', u'SEAFOOD', u'DESSERTS & SWEETS']
 
 def _get_conf(conf, key):
     path = os.path.expanduser(conf)
@@ -192,3 +192,5 @@ class Atl100():
         rt = self._update_data(ref, 'feedher', feedher)
         print(rt)
         
+    def get_mealtags(self):
+        print(MEALTAGS)

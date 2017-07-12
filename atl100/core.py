@@ -29,7 +29,7 @@ class Atl100():
         #self._debug('__init: {}'.format(self.adminClient))
         self.dbname = dbname
         self.dbclass = dbclass
-        key = _get_conf('~/.fdbhyconf', 'admin_key')
+        key = _get_conf('~/.atl100conf', 'admin_key')
         self.fdb = FdbOps(False, dbname, dbclass, key)
 
     def _debug(self, s):

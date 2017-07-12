@@ -8,7 +8,7 @@ import ConfigParser
 import json
 import hy
 
-from fdbhy import FdbOps
+from fdbops import FdbOps
 
 MEALTAGS = [u'BREAKFAST', u'SMALL PLATES, APPS & SIDES',
            u'SOUPS', u'SALADS', u'BURGERS & SANDWICHES',
@@ -136,7 +136,7 @@ class Atl100():
         
     def get(self, index, string):
         rt = self.fdb.get(index, string)
-        print(rt)
+        print('%s, %s, %s'%(rt['data']['dishname'], rt['data']['restname'], rt['data']['address']['usmail']))
 
     def get_by_tag(self, index, size, tagstr):
         rt = self.fdb.get_by_tag(index, tagstr, size)

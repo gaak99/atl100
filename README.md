@@ -45,6 +45,8 @@ mkdir /tmp/pypath && python setup.py develop --install-dir /tmp/pypath
 PATH=/tmp/pypath:$PATH bash atl100/tests/atl100tests.sh <new-test-dbname> atl100/tests/test-1cat1dish.json
 ```
 
+# Future Features
+* Mobile
 
-
-
+## Next Level Sh*te
+* http://www.techradar.com/news/how-three-words-could-change-the-way-we-navigate-the-globe

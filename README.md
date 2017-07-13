@@ -23,14 +23,13 @@ admin_key=<myadminkey>
 ### Basic Usage
 #### Once per db
 ```bash
-atl100 --dbname <dbname> dbinit
-#
-atl100 --dbname <dbname> dbload --filepath $ATL100/atl100/data/atl100-data.json
+$ atl100 --dbname <dbname> dbinit
+$ atl100 --dbname <dbname> dbload --filepath $ATL100/atl100/data/atl100-data.json
 # q&d verify db
-atl100 --dbname <dbname> get_mealtags --alldishes
+$ atl100 --dbname <dbname> get_mealtags --alldishes
 ```
 
-### Apply as needed
+#### Apply as needed
 ```bash
 $ atl100 --help
 $ atl100 sub-cmd --help

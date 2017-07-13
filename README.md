@@ -3,13 +3,7 @@
 Atl100 is a cli tool to grok Atl's top 100 dishes to try circa 2017 
  
 ## Status
-yo coming soon
-
-## Atl100 Usage
-```bash
-$ atl100 --help
-$ atl100 sub-cmd --help
-```
+yo just getting started but the basics work mostly
 
 ## Quick Start
 ### One time
@@ -32,10 +26,14 @@ admin_key=<myadminkey>
 atl100 --dbname <dbname> dbinit
 #
 atl100 --dbname <dbname> dbload --filepath $ATL100/atl100/data/atl100-data.json
-# verify db
-atl100 --dbname <dbname> get_mealtags
-atl100 --dbname <dbname> get_by_tag BREAKFAST
+# q&d verify db
+atl100 --dbname <dbname> get_mealtags --alldishes
+```
 
+### Apply as needed
+```bash
+$ atl100 --help
+$ atl100 sub-cmd --help
 ```
 
 # Tests

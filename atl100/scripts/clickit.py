@@ -125,9 +125,12 @@ def rm_tag(atl100, index, searchstring, string):
 #     atl100.list_section_tags()
 
 @cli.command(help='Get list of all meal tags of atl100 dishes.')
+@click.option('--alldishes/--no-alldishes',
+              default=False,
+              help='List all dishes of all meal tags.')
 @click.pass_obj
-def get_mealtags(atl100):
-    atl100.get_mealtags()
+def get_mealtags(atl100, alldishes):
+    atl100.get_mealtags(alldishes)
 
 @cli.command(help='Creat atl100 dishes db in cloud.')
 @click.pass_obj

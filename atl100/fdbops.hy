@@ -32,8 +32,8 @@
     self.dbname)
 
   (defn _debug [self s]
-    "Return our copy of x"
-    (print "debug: " s))
+    (if self.debug
+      (print "debug: " s)))
 
   (defn client-factory [self]
     "get fdb client handle"
@@ -42,11 +42,18 @@
     (assoc dbdct
            "database" (q.database self.dbname)
            "role" "server")
-    (setv self.client
+    (try
+     (setv self.client
           (-> (q.create_key dbdct)
               (self.adminClient.query)
               (get "secret")
               (FaunaClient)))
+     (except [e [BadRequest]]
+       (print "error: client_factory" % e)
+       (sys.exit 1))
+     (except [e [UnexpectedError]]
+       (print "error: client_factory" % e)
+       (sys.exit 2)))
     (self._debug "client_factory: end"))
 
   (defn put [self dct]

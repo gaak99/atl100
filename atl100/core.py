@@ -6,7 +6,6 @@ import sys
 import os
 import ConfigParser
 import json
-import hy
 
 from fdbops import FdbOps
 
@@ -106,28 +105,20 @@ class Atl100():
     def _upload_one_tag_data(self, tag, dishes):
         for dish in dishes:
             rt = self.fdb.put(dish)
-            print(rt)
+            if not rt:
+                print('warning: put fail %s'%dish)
             rt = self._update_tags(rt['ref'], [tag])
-            print(rt)
+            if not rt:
+                print('warning: put tag fail %s'%tag)
             
     def _upload_all_dishes(self, tags):
         n=0
         for t in tags:
             curr_tag = t[0]
-            print('n=%d tag=%s'%(n,curr_tag))
+            print('debug: _upload_all_dishes: n=%d tag=%s'%(n,curr_tag))
             n = n+1
-            #print i[0]
             d = t[1]
             self._upload_one_tag_data(curr_tag, d)
-            for j in d:
-                #loop thru map
-                name=url=None
-                for k,v in j.iteritems():
-                    if k == 'name':
-                        name=v
-                    if k == 'url':
-                        url=v
-                print('|%s| url=%s'%(name, url))
 
     def dbload(self, filepath, lolcats):
         tags = self._load_json_data(filepath)
@@ -192,5 +183,13 @@ class Atl100():
         rt = self._update_data(ref, 'feedher', feedher)
         print(rt)
         
-    def get_mealtags(self):
-        print(MEALTAGS)
+    def get_mealtags(self, alldishes):
+        if not alldishes:
+            print(MEALTAGS)
+            return
+        for tag in MEALTAGS:
+            print('Get all for tag %s ...'%tag)
+            rt = self.fdb.get_by_tag('dishes100_by_tags_with_restname',
+                                     tag, 25)
+            print(rt)
+            

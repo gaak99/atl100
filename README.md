@@ -11,18 +11,32 @@ $ atl100 --help
 $ atl100 sub-cmd --help
 ```
 
-
 ## Quick Start
 ### One time
 * Install
-
 ```bash
 git clone https://github.com/gaak99/atl100.git
-export SUDO=sudo           # set for your env
-cd atl100 && $SUDO python setup.py install
-export MYBIN=/usr/local/bin # set for your env
+# may need sudo for install
+cd atl100 && python setup.py install
 ```
-### As needed
+
+* Add your Faunadb admin key to ~/.atl100conf
+```
+[misc]
+admin_key=<myadminkey>
+```
+
+### Basic Usage
+#### Once per db
+```bash
+atl100 --dbname <dbname> dbinit
+#
+atl100 --dbname <dbname> dbload --filepath $ATL100/atl100/data/atl100-data.json
+# verify db
+atl100 --dbname <dbname> get_mealtags
+atl100 --dbname <dbname> get_by_tag BREAKFAST
+
+```
 
 # Tests
 

@@ -36,7 +36,6 @@ $ atl100 sub-cmd --help
 ```
 
 # Tests
-
 ```bash
 export PYTHONPATH=/tmp/pypath
 mkdir /tmp/pypath && python setup.py develop --install-dir /tmp/pypath

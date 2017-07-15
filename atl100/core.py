@@ -8,6 +8,7 @@ import ConfigParser
 import json
 
 from fdbops import FdbOps
+import geotri
 
 MEALTAGS = [u'BREAKFAST', u'SMALL PLATES, APPS & SIDES',
            u'SOUPS', u'SALADS', u'BURGERS & SANDWICHES',
@@ -73,6 +74,13 @@ class Atl100():
                              [{"field": ["data", "tags"]}],
                              [{"field": ["data", "feedher", "noshed"]}])
 
+        # addresses by tag -- kinda flurbed but ok for now
+        rt= self.fdb.dbcreat_index('dishes100_by_tags_with_address',
+                             [{"field": ["data", "tags"]}],
+                             [{"field": ["data", "restname"]},
+                              {"field": ["data", "address", "geocode"]}])
+                              #{"field": ["data", "address", "usmail"]}])
+        
     def dbinit(self):
         self.dbcreat()
         self.dbcreat_class()
@@ -132,7 +140,44 @@ class Atl100():
     def get_by_tag(self, index, size, tagstr):
         rt = self.fdb.get_by_tag(index, tagstr, size)
         print(rt)
+        
+    def get_addr_by_tag(self, index, size, tagstr):
+        rt = self.fdb.get_by_tag(index, tagstr, size)
+        print(rt)
 
+    def _get_addr_by_tag(self, index, size, tagstr):
+        rt = self.fdb.get_by_tag(index, tagstr, size)
+        return rt['data']
+
+    def geo_triang(self, epicenter, radius, tagstr):
+        def detwerkme(rt):
+            # cuz index is whack
+            max = len(rt)/2
+            j=i=0
+            goodl=[]
+            while i < max:
+                i1 = j
+                i2 = j+1
+                a = rt[i1]
+                b = rt[i2]
+                name=a[0]
+                lng=a[1]
+                lat=b[1]
+                d={'name':name, 'addr': {'latitude':lat, 'longitude':lng}}
+                goodl.append(d)
+                i = i+1
+                j = j+2
+            return goodl
+
+        dct = {'buhi': {'latitude':33.8925843, "longitude":-84.2838921},
+               'dectrsq': {'latitude':33.7751659, 'longitude':-84.29570760000001}} #brick
+        rt = self._get_addr_by_tag("dishes100_by_tags_with_address", 25, tagstr)
+        dishes = detwerkme(rt)
+        for dish in dishes:
+            dis = geotri.distance(dish['addr'], dct['buhi'])
+            if dis < radius:
+                print('close by Batman: %s'%dish['name'])
+            
     def get_latest(self, index, size, tagstr):
         rt = self.fdb.get_by_tag(index, tagstr, size)
         print(rt)

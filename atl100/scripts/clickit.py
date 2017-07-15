@@ -59,6 +59,27 @@ def get_tags(atl100, index, string):
 def get_by_tag(atl100, index, size, tagstr):
     atl100.get_by_tag(index, size, tagstr)
 
+@cli.command(help='Get all dishes&address with tag.')
+@click.option('--index', required=False,
+              default='dishes100_by_tags_with_address',
+              help='Search index.')
+@click.option('--size', required=False, default=25,
+              help='Search tag return size entries, default=25.')
+@click.argument('tagstr')
+@click.pass_obj
+def get_addr_by_tag(atl100, index, size, tagstr):
+    atl100.get_addr_by_tag(index, size, tagstr)
+
+@cli.command(help='Try geo triangulating all dishes in meal tag.')
+@click.option('--epicenter', required=False, default='buhi',
+              help='Places avail are buhi, dectrsq.')
+@click.option('--radius', required=False, default=5,
+              help='Nearby radius yall.')
+@click.argument('tagstr')
+@click.pass_obj
+def geo_triang(atl100, epicenter, radius, tagstr):
+    atl100.geo_triang(epicenter, radius, tagstr)
+
 @cli.command(help='Get latest dishes noshed by tag.')
 @click.option('--index', required=False,
               default='latest_dishes100_by_tag',

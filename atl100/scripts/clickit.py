@@ -72,7 +72,7 @@ def get_addr_by_tag(atl100, index, size, tagstr):
 
 @cli.command(help='Try geo triangulating all dishes in meal tag.')
 @click.option('--epicenter', required=False, default='buhi',
-              help='Places avail are buhi, dectrsq.')
+              help='Places avail are buhi, dectrsq, middie, dullie.')
 @click.option('--radius', required=False, default=5,
               help='Nearby radius yall.')
 @click.argument('tagstr')

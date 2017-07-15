@@ -170,6 +170,10 @@ class Atl100():
             return goodl
 
         dct = {'buhi': {'latitude':33.8925843, "longitude":-84.2838921},
+               # [33.7710112, -84.3831896]
+               'middie': {'latitude':33.7710112, "longitude":-84.3831896},
+               # [33.9567352, -84.1313215]
+               'dullie': {'latitude':33.9567352, "longitude":-84.1313215},
                'dectrsq': {'latitude':33.7751659, 'longitude':-84.29570760000001}} #brick
         rt = self._get_addr_by_tag("dishes100_by_tags_with_address", 25, tagstr)
         dishes = detwerkme(rt)
